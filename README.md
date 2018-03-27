@@ -1,4 +1,5 @@
 # vue-music
+<<<<<<< HEAD
 
 > vue prokect for mobile music player
 
@@ -19,3 +20,6 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+学做网易云音乐
+>>>>>>> d52f74cb7322e5551b85641abe58ec612f494de5
