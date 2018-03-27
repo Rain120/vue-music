@@ -24,6 +24,14 @@ export default {
       type: Boolean,
       default: false
     },
+    scrollX: {
+      type: Boolean,
+      default: false
+    },
+    scrollY: {
+      type: Boolean,
+      default: true
+    },
     pullup: {
       type: Boolean,
       default: false
@@ -49,6 +57,8 @@ export default {
       }
       this.scroll = new BScroll(this.$refs.wrapper, {
         probeType: this.probeType,
+        scrollY: this.scrollY,
+        scrollX: this.scrollX,
         click: this.click
       })
       if (this.listenScroll) {
@@ -57,7 +67,6 @@ export default {
           me.$emit('scroll', pos)
         })
       }
-
       if (this.pullup) {
         this.scroll.on('scrollEnd', () => {
           if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
@@ -98,5 +107,4 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-
 </style>

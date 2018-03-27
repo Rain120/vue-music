@@ -1,56 +1,43 @@
 <template>
-  <div class="home">
+  <div class="mv-tabs">
     <div class="tabs">
-      <router-link tag="div" to="/home/recommend" class="tab-item">
-        <span class="tab-link">发现</span>
+      <router-link tag="div" to="/mv/recommend-mv" class="tab-item">
+        <span class="tab-link">推荐</span>
       </router-link>
-      <router-link tag="div" to="/home/my-music" class="tab-item">
-        <span class="tab-link">我的</span>
+      <router-link tag="div" to="/mv/music-mv" class="tab-item">
+        <span class="tab-link">音乐</span>
       </router-link>
-      <router-link tag="div" to="/home/broadcast" class="tab-item">
-        <span class="tab-link">电台</span>
+      <router-link tag="div" to="/mv/show-mv" class="tab-item">
+        <span class="tab-link">Show</span>
+      </router-link>
+      <router-link tag="div" to="/mv/acg-mv" class="tab-item">
+        <span class="tab-link">二次元</span>
+      </router-link>
+      <router-link tag="div" to="/mv/dance-mv" class="tab-item">
+        <span class="tab-link">舞蹈</span>
+      </router-link>
+      <router-link tag="div" to="/mv/game-mv" class="tab-item">
+        <span class="tab-link">游戏</span>
+      </router-link>
+      <router-link tag="div" to="/mv/mvs" class="tab-item">
+        <span class="tab-link">mv</span>
       </router-link>
     </div>
-    <transition :name="transitionName">
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
-    </transition>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      transitionName: ''
-    }
-  },
-  computed: {
-    name () {
-      if (this.transitionName === 'slide-right') {
-        return 'slide-left'
-      } else {
-        return 'slide-right'
-      }
-    }
-  },
-  watch: {
-    $route (to, from) {
-      let fromIndex = from.meta.tab
-      let toIndex = to.meta.tab
-      let diff = parseInt(fromIndex) - parseInt(toIndex)
-      this.transitionName = diff > 0 ? 'slide-right' : 'slide-left'
-    }
-  }
+
 }
 </script>
 
 <style lang="stylus" scoped>
-  .home
+  .mv-tabs
     .tabs
       margin-top 3rem
       height 2.5rem
+      width 140%
       line-height 2.5rem
       box-sizing border-box
       display flex

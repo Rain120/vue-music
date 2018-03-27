@@ -2,7 +2,7 @@
  * @Author: Rainy
  * @Date: 2018-03-26 16:03:05
  * @Last Modified by: Rainy
- * @Last Modified time: 2018-03-26 16:50:19
+ * @Last Modified time: 2018-03-27 21:48:37
  */
 // 详见 https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=neteasecloudmusicapi
 import axios from 'axios'
@@ -70,7 +70,7 @@ export function getMusicListDetail (id) {
 }
 
 // 推荐 mv
-export function getMv () {
+export function getMV () {
   let url = apiConfig.recommendMVPath
   return axios.get(url).then(res => {
     return Promise.resolve(res)
@@ -78,10 +78,10 @@ export function getMv () {
 }
 
 // 推荐歌单
-export function getMusic () {
+export function getMusicList () {
   let url = apiConfig.recommendMusicListPath
   return axios.get(url).then(res => {
-    return Promise.resolve(res)
+    return Promise.resolve(res.data.result)
   })
 }
 
