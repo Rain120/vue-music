@@ -41,24 +41,65 @@
           </div>
         </div>
         <div class="recommend-music common" v-if="recommendMusicList.length > 0">
-          <div class="music-list-title title"  @click="showAllMusicList">推荐歌单<i class="icon icon-right"></i>
+          <div class="title"  @click="showAllMusicList">推荐歌单<i class="icon icon-right"></i>
           </div>
           <div class="list-content">
             <ul>
               <li @click="showMusicListDetail(item)" v-for="(item, index) in recommendMusicList" :key="index">
                 <img :src="item.picUrl">
+                <div class="list-play-count">
+                  <i class="icon icon-volume-medium"></i><span>{{ parseInt(item.playCount) > 10000 ? ((parseInt(item.playCount / 10000) + '万')) : (parseInt(item.playCount)) }}</span>
+                </div>
                 <p class="list-name">{{ item.name }}</p>
               </li>
             </ul>
           </div>
         </div>
-        <div class="recommend-private common">
-          <div class="private-title title">独家放送</div>
+        <div class="recommend-private common" v-if="privateContent.length > 0">
+          <div class="title">独家放送</div>
           <div class="private-content">
             <ul>
               <li @click="showPrivateDetail(item)" v-for="(item, index) in privateContent" :key="index">
-                <img :src="item.sPicUrl">
+                <img v-lazy="item.sPicUrl">
                 <p class="private-name">{{ item.name }}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="recommend-new-song common" v-if="recommendNewSong.length > 0">
+          <div class="title"  @click="showAllNewSong">最新音乐<i class="icon icon-right"></i>
+          </div>
+          <div class="new-song-content">
+            <ul>
+              <li v-for="(song, index) in recommendNewSong" :key="index">
+                <img v-lazy="song.album.picUrl">
+                <p class="new-song-name">{{ song.name }}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="recommend-mv common" v-if="recommendMV.length > 0">
+          <div class="title">推荐MV</div>
+          <div class="mv-content">
+            <ul>
+              <li @click="showMVDetail(item.id)" v-for="(item, index) in recommendMV" :key="index">
+                <img v-lazy="item.picUrl">
+                <div class="artist">
+                  <p class="mv-name">{{ item.name }}</p>
+                  <p class="artist-name">{{ item.artistName }}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="recommend-dj-program common" v-if="recommendDjProgram.length > 0">
+          <div class="title">主播电台<i class="icon icon-right"></i>
+          </div>
+          <div class="dj-program-content">
+            <ul>
+              <li v-for="(item, index) in recommendDjProgram" :key="index">
+                <img v-lazy="item.picUrl">
+                <p class="dj-program-name">{{ item.name }}</p>
               </li>
             </ul>
           </div>
@@ -81,13 +122,19 @@ export default {
       banners: [],
       recommendMusicLists: [],
       recommendMusicList: [],
-      privateContent: []
+      privateContent: [],
+      recommendNewSong: [],
+      recommendMV: [],
+      recommendDjProgram: []
     }
   },
   created () {
     this._getBanner()
     this._getMusicList()
     this._getPrivateContent()
+    this._getMV()
+    this._getNewSong()
+    this._getDjProgram()
   },
   methods: {
     _getBanner () {
@@ -110,6 +157,29 @@ export default {
         }
       })
     },
+    _getNewSong () {
+      apiData.getNewSong().then(res => {
+        if (res.data.code === CODE_OK) {
+          res.data.result.slice(0, 6).forEach(item => {
+            this.recommendNewSong.push(item.song)
+          })
+        }
+      })
+    },
+    _getMV () {
+      apiData.getMV().then(res => {
+        if (res.data.code === CODE_OK) {
+          this.recommendMV = res.data.result
+        }
+      })
+    },
+    _getDjProgram () {
+      apiData.getDjProgram().then(res => {
+        if (res.data.code === CODE_OK) {
+          this.recommendDjProgram = res.data.result
+        }
+      })
+    },
     loadImage () {
       if (!this.checkLoaded) {
         this.$refs.scroll.refresh()
@@ -124,6 +194,12 @@ export default {
     },
     showPrivateDetail (item) {
       console.log('private detail')
+    },
+    showMVDetail (id) {
+      console.log('showMVDetail')
+    },
+    showAllNewSong () {
+      console.log('new songs')
     }
   },
   components: {
@@ -147,102 +223,206 @@ export default {
           position relative
           width 100%
           overflow hidden
-    .tabs
-      height 100px
-      display flex
-      .tab
-        width 25%
-        text-align center
-        .icon-wrapper
-          width 50px
-          height 50px
-          margin 10px auto
-          border-radius 50%
-          border 1px solid #d33a31
-          position relative
-          .date
-            position absolute
-            top 23px
-            left 2px
-            right 0
-            bottom 0
-            text-align center
-            color #d33a31
-            font-size 12px
-          .icon
-            font-size 34px
-            line-height 50px
-            color #d33a31
-          .description
-            color #303131
-            font-size 14px
-    .common
-      .title
-        height 30px
-        line-height 30px
-        font-size 18px
-        border-left 3px solid #d33a31
-        text-indent 4px
-        padding-left 5px
-        margin-bottom 5px
-        color #303131
-        &.icon
-          color #919293
-    .recommend-music
-      .list-content
-        height 100%
-        width 100%
-        overflow hidden
-        ul
-          li
-            width 33.333%
-            float left
-            height 200px
-            box-sizing border-box
-            padding 0 5px
-            img
-              height 137px
-              width 100%
-            .list-name
-              height 40px
-              line-height 20px
-              padding 2px 0 0 3px
-              font-size 14px
-          li:nth-child(3n+1)
-            padding-left 3px
-            padding-right 0
-          li:nth-child(3n)
-            padding-left 0
-            padding-right 3px
-   .recommend-private
-    .private-content
-      height 100%
-      width 100%
-      overflow hidden
-      ul
+      .tabs
+        height 100px
         display flex
-        justify-content space-between
-        flex-wrap wrap
-        li
-          width 50%
-          height 200px
-          box-sizing border-box
-          img
+        .tab
+          width 25%
+          text-align center
+          .icon-wrapper
+            width 50px
+            height 50px
+            margin 10px auto
+            border-radius 50%
+            border 1px solid #d33a31
+            position relative
+            .date
+              position absolute
+              top 23px
+              left 2px
+              right 0
+              bottom 0
+              text-align center
+              color #d33a31
+              font-size 12px
+            .icon
+              font-size 34px
+              line-height 50px
+              color #d33a31
+            .description
+              color #303131
+              font-size 14px
+      .common
+        .title
+          height 30px
+          line-height 30px
+          font-size 18px
+          border-left 3px solid #d33a31
+          text-indent 4px
+          padding-left 5px
+          margin-bottom 5px
+          color #303131
+          &.icon
+            color #919293
+      .recommend-music
+        .list-content
+          height 100%
+          width 100%
+          overflow hidden
+          ul
+            li
+              width 33.333%
+              float left
+              height 200px
+              box-sizing border-box
+              padding 0 5px
+              position relative
+              img
+                height 137px
+                width 100%
+              .list-play-count
+                text-align center
+                color #fff
+                position absolute
+                top 5px
+                right 5px
+                &>span,&>i
+                  font-size 13px
+              .list-name
+                height 40px
+                line-height 20px
+                padding 2px 0 0 3px
+                font-size 14px
+                // overflow hidden
+                // text-overflow ellipsis
+                // white-space nowrap
+            li:nth-child(3n+1)
+              padding-left 3px
+              padding-right 0
+            li:nth-child(3n)
+              padding-left 0
+              padding-right 3px
+      .recommend-private
+          margin-top 8px
+          .private-content
+            height 100%
             width 100%
-            height 150px
-          .private-name
-            height 40px
-            line-height 20px
-            padding 2px 0 0 3px
-            font-size 14px
-        li:first-child
-          padding 3px
-        li:nth-child(2)
-          padding 3px
-        li:last-child
-          padding 0 3px
+            overflow hidden
+            ul
+              display flex
+              justify-content space-between
+              flex-wrap wrap
+              li
+                width 50%
+                height 200px
+                box-sizing border-box
+                img
+                  width 100%
+                  height 150px
+                .private-name
+                  height 40px
+                  line-height 20px
+                  padding 2px 0 0 3px
+                  font-size 14px
+              li:first-child
+                padding 3px
+              li:nth-child(2)
+                padding 3px
+              li:last-child
+                padding 0 3px
+                width 100%
+                img
+                  width 100%
+                  height 180px
+      .recommend-new-song
+        margin-top 8px
+        .new-song-content
+          height 100%
           width 100%
-          img
+          overflow hidden
+          ul
+            li
+              width 33.333%
+              float left
+              height 200px
+              box-sizing border-box
+              padding 0 5px
+              img
+                height 137px
+                width 100%
+              .new-song-name
+                height 40px
+                line-height 20px
+                padding 2px 0 0 3px
+                font-size 14px
+            li:nth-child(3n+1)
+              padding-left 3px
+              padding-right 0
+            li:nth-child(3n)
+              padding-left 0
+              padding-right 3px
+      .recommend-mv
+        margin-top 8px
+        .mv-content
           width 100%
-          height 180px
+          height 100%
+          overflow hidden
+          ul
+            li
+              width 50%
+              float left
+              height 200px
+              padding 3px
+              box-sizing border-box
+              img
+                width 100%
+                height 150px
+              .artist
+                line-height 12px
+                padding-top 4px
+                padding-left 6px
+                font-size 14px
+                .mv-name, .artist-name
+                  // overflow hidden
+                  // text-overflow ellipsis
+                  // white-space nowrap
+                .mv-name
+                  padding-top 2px
+                .artist-name
+                  padding-top 5px
+                  color: #888
+            li:nth-child(2n+1)
+              padding-left 2px
+            li:nth-child(2n)
+              padding-right 3px
+      .recommend-dj-program
+        margin-top 8px
+        .dj-program-content
+          height 100%
+          width 100%
+          overflow hidden
+          ul
+            li
+              width 33.333%
+              float left
+              height 200px
+              box-sizing border-box
+              padding 0 5px
+              img
+                height 137px
+                width 100%
+              .dj-program-name
+                height 40px
+                line-height 20px
+                padding 2px 0 0 3px
+                font-size 14px
+                // overflow hidden
+                // text-overflow ellipsis
+                // white-space nowrap
+            li:nth-child(3n+1)
+              padding-left 3px
+              padding-right 0
+            li:nth-child(3n)
+              padding-left 0
+              padding-right 3px
 </style>

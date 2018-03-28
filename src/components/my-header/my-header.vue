@@ -4,14 +4,14 @@
       <i class="icon-menu ripple" @click="showSidebar"></i>
     </div>
     <sidebar ref="sidebar"/>
-    <div class="option">
-      <router-link tag="div" to="/mv" class="optionItem ripple">
+    <div class="tabs">
+      <router-link tag="div" to="/mv" class="item ripple">
         <i class="icon-music"></i>
       </router-link>
-      <router-link tag="div" to="/home" class="optionItem ripple">
+      <router-link tag="div" to="/home" class="item ripple">
         <i class="icon-wangyi"></i>
       </router-link>
-      <router-link tag="div" to="/friends" class="optionItem ripple">
+      <router-link tag="div" to="/friends" class="item ripple">
         <i class="icon-community"></i>
       </router-link>
     </div>
@@ -56,13 +56,13 @@ export default {
     right 0
     .menu, .search
       margin auto
-    .option
+    .tabs
       height 3rem
       color #e58983
       display flex
       justify-content center
       align-items center
-      .optionItem
+      .item
         flex 1
         vertical-align middle
 </style>

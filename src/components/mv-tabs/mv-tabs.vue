@@ -28,16 +28,27 @@
 
 <script>
 export default {
-
+  watch: {
+    $route (to, from) {
+      let fromIndex = from.meta.tab
+      let toIndex = to.meta.tab
+      let diff = parseInt(fromIndex) - parseInt(toIndex)
+      this.transitionName = diff > 0 ? 'slide-right' : 'slide-left'
+    }
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
   .mv-tabs
+    position relative
+    top -5.5rem
+    bottom 0
+    width 100%
     .tabs
       margin-top 3rem
       height 2.5rem
-      width 140%
+      width 100%
       line-height 2.5rem
       box-sizing border-box
       display flex

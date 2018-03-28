@@ -4,6 +4,8 @@ let apiConfig = {
   recommendBannerPath: url + '/banner',
   recommendMusicListPath: url + '/personalized',
   recommendMVPath: url + '/personalized/mv',
+  newSong: url + '/personalized/newsong',
+  DjProgram: url + '/personalized/djprogram',
   recommendPrivatePath: url + '/personalized/privatecontent',
   musicListDetailPath: url + 'recommendMVPath',
   AlbumDetailPath: url + '/album',

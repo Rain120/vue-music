@@ -2,7 +2,7 @@
  * @Author: Rainy
  * @Date: 2018-03-26 16:03:05
  * @Last Modified by: Rainy
- * @Last Modified time: 2018-03-27 21:48:37
+ * @Last Modified time: 2018-03-28 11:59:23
  */
 // 详见 https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=neteasecloudmusicapi
 import axios from 'axios'
@@ -92,7 +92,20 @@ export function getPrivateContent () {
     return Promise.resolve(res)
   })
 }
-
+// 最新音乐
+export function getNewSong () {
+  let url = apiConfig.newSong
+  return axios.get(url).then(res => {
+    return Promise.resolve(res)
+  })
+}
+// 推荐电台
+export function getDjProgram () {
+  let url = apiConfig.DjProgram
+  return axios.get(url).then(res => {
+    return Promise.resolve(res)
+  })
+}
 /**
  * 搜索
  * @param {*} keywords 必选参数，关键词
@@ -143,7 +156,7 @@ export function getSingerMusic (id) {
 }
 
 // mv 排行
-export function getTopMV (limit, offset) {
+export function getTopMV (limit = 30, offset = 0) {
   let url = apiConfig.topMV + `?limit=${limit}&offset=${offset}`
   return axios.get(url).then(res => {
     return Promise.resolve(res)

@@ -1,13 +1,9 @@
 <template>
   <div class="mv-wrapper">
-    <scroll class="scroll-wrapper" ref="scroll" :scrollX="true" :scrollY="false" :data="data">
-      <div>
-        <mv-tabs></mv-tabs>
-        <keep-alive>
-          <router-view></router-view>
-        </keep-alive>
-      </div>
-    </scroll>
+    <mv-tabs class="tabs"></mv-tabs>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
   </div>
 </template>
 
@@ -29,5 +25,10 @@ export default {
 
 <style lang="stylus" scoped>
   .mv-wrapper
-    margin-top 3rem
+    position fixed
+    top 5.5rem
+    bottom 0
+    width 100%
+    .tabs
+      height 2.5rem
 </style>

@@ -1,38 +1,41 @@
 <template>
   <div class="recommend-mv">
-    Recommend mv
+    <mv-list-show :mvList="topMV"></mv-list-show>
   </div>
 </template>
 
 <script>
-import Scroll from 'base/scroll/scroll'
+import MvListShow from 'base/mv-list-show/mv-list-show'
 import * as apiData from 'api/data'
 import { CODE_OK } from 'common/js/config'
 export default {
   data () {
     return {
-      recommendMV: []
+      topMV: []
     }
   },
   created () {
-    this._getMV()
+    this._getTopMV()
   },
   methods: {
-    _getMV () {
-      apiData.getMV().then(res => {
+    _getTopMV () {
+      apiData.getTopMV(100).then(res => {
         if (res.data.code === CODE_OK) {
-          console.log(res.data.result)
-          this.recommendMV = res.data.result
+          this.topMV = res.data.data
         }
       })
     }
   },
   components: {
-    Scroll
+    MvListShow
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-
+  .recommend-mv
+    // position fixed
+    // top 5.5rem
+    // bottom 0
+    // width 100%
 </style>
