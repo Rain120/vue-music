@@ -71,13 +71,13 @@ export default {
           .artist
             height 30px
             margin-top 2px
-            padding-left 4px
+            padding-left 5px
             .mv-name
-              font-size 13px
+              font-size 14px
             .artist-name
               font-size 12px
-              margin-top 2px
-              // color #888
+              margin-top 3px
+              color #888
       .loading-container
         position absolute
         width 100%

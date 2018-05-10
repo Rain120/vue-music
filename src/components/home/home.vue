@@ -2,10 +2,10 @@
   <div class="home">
     <div class="tabs">
       <router-link tag="div" to="/home/recommend" class="tab-item">
-        <span class="tab-link">发现</span>
+        <span class="tab-link">推荐</span>
       </router-link>
       <router-link tag="div" to="/home/my-music" class="tab-item">
-        <span class="tab-link">我的</span>
+        <span class="tab-link">朋友</span>
       </router-link>
       <router-link tag="div" to="/home/broadcast" class="tab-item">
         <span class="tab-link">电台</span>

@@ -1,4 +1,4 @@
-let url = 'http://111.231.54.71:3000'
+let url = 'http://localhost:3000'
 
 let apiConfig = {
   recommendBannerPath: url + '/banner',

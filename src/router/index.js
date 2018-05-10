@@ -8,7 +8,7 @@ export default new Router({
     {
       path: '/home',
       component: () => import('components/home/home'),
-      redirect: '/home/my-music',
+      redirect: '/home/recommend',
       children: [
         {
           path: 'recommend',

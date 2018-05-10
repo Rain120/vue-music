@@ -3,11 +3,11 @@
     <scroll class="recommend-content" ref="scroll" :data="recommendMusicLists">
       <div>
         <div class="sliders">
-          <div class="slider-wrapper" v-if="banners.length">
+          <div class="slider-wrapper" v-if="banners.length > 0">
             <slider>
               <div v-for="(banner, index) in banners" :key="index">
                 <a :href="banner.url">
-                  <img class="needsclick" :src="banner.pic" @load="loadImage" />
+                  <img class="needsclick" :src="banner.picUrl" @load="loadImage" />
                 </a>
               </div>
             </slider>
@@ -344,7 +344,7 @@ export default {
             li
               width 33.333%
               float left
-              height 200px
+              height 160px
               box-sizing border-box
               padding 0 5px
               img
@@ -383,13 +383,15 @@ export default {
                 padding-left 6px
                 font-size 14px
                 .mv-name, .artist-name
-                  // overflow hidden
-                  // text-overflow ellipsis
-                  // white-space nowrap
+                  overflow hidden
+                  text-overflow ellipsis
+                  white-space nowrap
                 .mv-name
-                  padding-top 2px
+                  padding 2px 0 3px 0
+                  font-size 14px
                 .artist-name
-                  padding-top 5px
+                  font-size 13px
+                  padding-top 3px
                   color: #888
             li:nth-child(2n+1)
               padding-left 2px
