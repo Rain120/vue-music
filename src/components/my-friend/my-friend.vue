@@ -1,6 +1,6 @@
 <template>
-  <div class="my-music">
-    12
+  <div class="my-friend">
+    friends
   </div>
 </template>
 

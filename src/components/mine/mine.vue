@@ -1,6 +1,6 @@
 <template>
   <div class="friends-wrapper">
-    Friends
+    Mine
   </div>
 </template>
 

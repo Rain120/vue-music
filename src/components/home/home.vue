@@ -4,18 +4,21 @@
       <router-link tag="div" to="/home/recommend" class="tab-item">
         <span class="tab-link">推荐</span>
       </router-link>
-      <router-link tag="div" to="/home/my-music" class="tab-item">
+      <router-link tag="div" to="/home/my-friend" class="tab-item">
         <span class="tab-link">朋友</span>
       </router-link>
       <router-link tag="div" to="/home/broadcast" class="tab-item">
         <span class="tab-link">电台</span>
       </router-link>
     </div>
-    <transition :name="transitionName">
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+    <!-- <transition :name="transitionName">
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
-    </transition>
+    </transition> -->
   </div>
 </template>
 
@@ -70,7 +73,7 @@ export default {
       transition all .3s
     .slide-left-leave-active
       transform translate(-100%)
-      transition all  .3s
+      transition all .3s
     .slide-right-enter
       transform translate(-100%)
     .slide-right-enter-active

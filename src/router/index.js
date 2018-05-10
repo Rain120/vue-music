@@ -18,8 +18,8 @@ export default new Router({
           }
         },
         {
-          path: 'my-music',
-          component: () => import('components/my-music/my-music'),
+          path: 'my-friend',
+          component: () => import('components/my-friend/my-friend'),
           meta: {
             tab: 2
           }
@@ -90,12 +90,16 @@ export default new Router({
       ]
     },
     {
-      path: '/friends',
-      component: () => import('components/friends/friends')
+      path: '/mine',
+      component: () => import('components/mine/mine')
+    },
+    {
+      path: '/search',
+      component: () => import('components/search/search')
     },
     {
       path: '*',
-      redirect: '/home/my-music'
+      redirect: '/home/recommend'
     }
   ]
 })

@@ -1,23 +1,23 @@
 <template>
   <div class="my-header">
     <div class="menu">
-      <i class="icon-menu ripple" @click="showSidebar"></i>
+      <i class="icon iconfont music-menu ripple" @click="showSidebar"></i>
     </div>
     <sidebar ref="sidebar"/>
     <div class="tabs">
-      <router-link tag="div" to="/mv" class="item ripple">
-        <i class="icon-music"></i>
+      <router-link tag="div" to="/mine" class="item ripple">
+        <i class="icon iconfont music-mine"></i>
       </router-link>
       <router-link tag="div" to="/home" class="item ripple">
-        <i class="icon-wangyi"></i>
+        <i class="icon iconfont music-icon"></i>
       </router-link>
-      <router-link tag="div" to="/friends" class="item ripple">
-        <i class="icon-community"></i>
+      <router-link tag="div" to="/mv" class="item ripple">
+        <i class="icon iconfont music-mv"></i>
       </router-link>
     </div>
     <div></div>
     <div class="search">
-      <i class="icon-search ripple" @click="search"></i>
+      <i class="icon iconfont music-search ripple" @click="search"></i>
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ import Sidebar from 'src/components/sidebar/sidebar'
 export default {
   methods: {
     search () {
-      console.log('search')
+      this.$router.push('/search')
     },
     showSidebar () {
       this.$refs.sidebar.open()

@@ -16,33 +16,32 @@
         <div class="tabs">
           <div class="tab">
             <div class="icon-wrapper">
-              <i class="icon icon-fm"></i>
+              <i class="icon iconfont music-broadcast"></i>
             </div>
             <p class="description">私人FM</p>
           </div>
           <div class="tab">
             <div class="icon-wrapper">
-              <i class="icon icon-date"></i>
+              <i class="icon iconfont music-calendar"></i>
               <p class="date">{{ (new Date()).getDate() }}</p>
             </div>
             <p class="description">每日推荐</p>
           </div>
           <div class="tab">
             <div class="icon-wrapper">
-              <i class="icon icon-fm"></i>
+              <i class="icon iconfont music-songs"></i>
             </div>
             <p class="description">歌单</p>
           </div>
           <div class="tab">
             <div class="icon-wrapper">
-              <i class="icon icon-rank-list"></i>
+              <i class="icon iconfont music-rank"></i>
             </div>
             <p class="description">排行榜</p>
           </div>
         </div>
         <div class="recommend-music common" v-if="recommendMusicList.length > 0">
-          <div class="title"  @click="showAllMusicList">推荐歌单<i class="icon icon-right"></i>
-          </div>
+          <div class="title"  @click="showAllMusicList">推荐歌单<i class="icon iconfont music-arrow-right"></i></div>
           <div class="list-content">
             <ul>
               <li @click="showMusicListDetail(item)" v-for="(item, index) in recommendMusicList" :key="index">
@@ -56,7 +55,7 @@
           </div>
         </div>
         <div class="recommend-private common" v-if="privateContent.length > 0">
-          <div class="title">独家放送</div>
+          <div class="title">独家放送<i class="icon iconfont music-arrow-right"></i></div>
           <div class="private-content">
             <ul>
               <li @click="showPrivateDetail(item)" v-for="(item, index) in privateContent" :key="index">
@@ -67,8 +66,7 @@
           </div>
         </div>
         <div class="recommend-new-song common" v-if="recommendNewSong.length > 0">
-          <div class="title"  @click="showAllNewSong">最新音乐<i class="icon icon-right"></i>
-          </div>
+          <div class="title"  @click="showAllNewSong">最新音乐<i class="icon iconfont music-arrow-right"></i></div>
           <div class="new-song-content">
             <ul>
               <li v-for="(song, index) in recommendNewSong" :key="index">
@@ -79,7 +77,7 @@
           </div>
         </div>
         <div class="recommend-mv common" v-if="recommendMV.length > 0">
-          <div class="title">推荐MV</div>
+          <div class="title">推荐MV<i class="icon iconfont music-arrow-right"></i></div>
           <div class="mv-content">
             <ul>
               <li @click="showMVDetail(item.id)" v-for="(item, index) in recommendMV" :key="index">
@@ -93,8 +91,7 @@
           </div>
         </div>
         <div class="recommend-dj-program common" v-if="recommendDjProgram.length > 0">
-          <div class="title">主播电台<i class="icon icon-right"></i>
-          </div>
+          <div class="title">主播电台<i class="icon iconfont music-arrow-right"></i></div>
           <div class="dj-program-content">
             <ul>
               <li v-for="(item, index) in recommendDjProgram" :key="index">
@@ -230,24 +227,24 @@ export default {
           width 25%
           text-align center
           .icon-wrapper
-            width 50px
-            height 50px
-            margin 10px auto
+            width 60px
+            height 60px
+            margin 7px auto
             border-radius 50%
-            border 1px solid #d33a31
+            border 1.5px solid #d33a31
             position relative
             .date
               position absolute
-              top 23px
-              left 2px
+              top 24px
+              left 0px
               right 0
               bottom 0
               text-align center
               color #d33a31
-              font-size 12px
+              font-size 19px
             .icon
-              font-size 34px
-              line-height 50px
+              font-size 30px
+              line-height 60px
               color #d33a31
             .description
               color #303131
@@ -257,7 +254,7 @@ export default {
           height 30px
           line-height 30px
           font-size 18px
-          border-left 3px solid #d33a31
+          // border-left 3px solid #d33a31
           text-indent 4px
           padding-left 5px
           margin-bottom 5px
