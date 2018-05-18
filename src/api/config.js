@@ -15,6 +15,7 @@ let apiConfig = {
   MVSimi: url + '/simi/mv',
   MVComment: url + '/comment/mv',
   hotSearch: url + '/search/hot',
+  suggest: url + '/search/suggest',
   search: url + '/search',
   singerMV: url + '/artist/mv',
   singerAlbum: url + '/artist/album',

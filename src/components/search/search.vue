@@ -1,32 +1,30 @@
 <template>
   <div class="search">
-    <div class="search-box">
-      <span class="back" @click="back"><i class="icon iconfont music-arrow-left"></i></span>
-      <input type="text" placeholder="请输入歌曲或歌手" v-model="query" />
-    </div>
-    <div class="search-wrapper">
-      <scroll class="search-scroll" ref="scroll" :data="hotSearchQuery">
-        <div class="singer-categories"><i class="icon iconfont music-categories"></i>歌手分类</div>
-        <div class="hot-search">
-          <h1 class="title">热门搜索</h1>
-            <ul>
-              <li class="item" v-for="(item, index) in hotSearchQuery"  @click="addQuery(item.first)" :key="index">
-                <span>{{item.first}}</span>
-              </li>
-            </ul>
-        </div>
-        <loading v-if="hotSearchQuery.length === 0"></loading>
-        <div class="search-history">
-          <h1 class="title">搜索历史</h1>
-        </div>
-        <div class="search-result">
-          <scroll :data="result">
-            <ul v-for="(item, index) in result" :key="index">
-              <li>
-                <span>{{item.name}} - {{item.artists[0].name}}</span>
-              </li>
-            </ul>
-          </scroll>
+    <search-box ref="searchbox" @query="queryChange"></search-box>
+    <div class="search-wrapper" ref="searchwrapper">
+      <scroll class="search-scroll" ref="scroll">
+        <div>
+          <div class="singer-categories" v-show="!query"><i class="icon iconfont music-categories"></i>歌手分类</div>
+          <div class="hot-search" v-show="!query">
+            <h1 class="title">热门搜索</h1>
+              <ul>
+                <li class="item" v-for="(item, index) in hotSearchQuery"  @click="addQuery(item.first)" :key="index">
+                  <span>{{item.first}}</span>
+                </li>
+              </ul>
+          </div>
+          <loading v-if="hotSearchQuery.length === 0"></loading>
+          <div class="search-history" v-show="!query">
+            <h1 class="title">
+              <span class="text">搜索历史</span>
+              <span class="clear">
+                <i class="icon iconfont music-clear"></i>
+              </span>
+            </h1>
+          </div>
+          <div class="search-suggest" v-show="query">
+            <search-result ref="searchresult" :query="query"></search-result>
+          </div>
         </div>
       </scroll>
     </div>
@@ -34,45 +32,29 @@
 </template>
 
 <script>
+import SearchBox from 'base/search-box/search-box'
+import SearchResult from 'components/search-result/search-result'
 import Loading from 'base/loading/loading'
 import Scroll from 'base/scroll/scroll'
 import * as apiData from 'api/data'
-import * as util from 'common/js/util'
 import { CODE_OK } from 'common/js/config'
 
 export default {
   data () {
     return {
       hotSearchQuery: [],
-      result: [],
-      resultTotal: 0,
-      hasMore: true,
       query: ''
     }
   },
   created () {
     this._getHotSearch()
-    this.$watch('query', util.debounce((newQuery) => {
-      this._getSearch()
-    }, 200))
   },
   methods: {
-    back () {
-      this.$router.push('/mine')
-    },
-    addQuery (query) {
+    queryChange (query) {
       this.query = query
     },
-    _getSearch () {
-      console.log(this.query)
-      apiData.getSearch(this.query).then(res => {
-        if (res.data.code === CODE_OK) {
-          let ret = res.data.result
-          console.log(ret)
-          this.result = this._normalizeSongs(ret.songs)
-          this.resultTotal = ret.songCount
-        }
-      })
+    addQuery (query) {
+      this.$refs.searchbox.setQuery(query)
     },
     _getHotSearch () {
       apiData.getHotSearch().then(res => {
@@ -80,13 +62,6 @@ export default {
           this.hotSearchQuery = res.data.result.hots
         }
       })
-    },
-    _normalizeSongs (list) {
-      let ret = []
-      list.forEach(element => {
-        ret.push(element)
-      })
-      return ret
     }
   },
   watch: {
@@ -100,61 +75,70 @@ export default {
   },
   components: {
     Loading,
-    Scroll
+    Scroll,
+    SearchBox,
+    SearchResult
   }
 }
 </script>
 
 <style lang="stylus" scoped>
   .search
-    position: fixed
-    z-index: 10
-    left: 0
-    top: 0
-    width: 100%
-    height: 100%
-    background: #fff
-    .search-box
+    position fixed
+    z-index 10
+    left 0
+    top 0
+    width 100%
+    height 100%
+    background #fff
+    .search-wrapper
+      position fixed
+      top 43px
+      bottom 0
       width 100%
-      height 40px
-      .back
-        width 13%
-        float left
-        i
-          display block
-          margin 5px 23%
-          font-size 34px
-          color #d33a31
-      input
+      .search-scroll
         height 100%
-        width 85%
-        float right
-        margin-right 5px
-        font-size 20px
-        border none
-        outline none
-        border-bottom 1px solid #d33a31
-    .singer-categories
-      line-height 40px
-      font-size 17px
-      width 22%
-      margin 15px auto
-    .hot-search
-      .title
-        margin-bottom 10px
-      ul
-        margin 5px 20px
-        .item
-          display inline-block
-          padding 5px 10px
-          margin 0 20px 10px 0
-          border-radius 6px
-          border 1px solid #ccc
-          background-color #d33a31
-          color #fff
-    .loading-container
-      position absolute
-      width 100%
-      top 50%
-      transform translateY(-50%)
+        overflow hidden
+        .singer-categories
+          line-height 40px
+          font-size 17px
+          width 30%
+          margin 15px auto
+        .hot-search
+          .title
+            margin-bottom 10px
+          ul
+            margin 5px 20px
+            .item
+              display inline-block
+              padding 5px 10px
+              margin 0 20px 10px 0
+              border-radius 6px
+              border 1px solid #ccc
+              background-color #d33a31
+              color #fff
+              span
+                font-size 13px
+        // .loading-container
+        //   position absolute
+        //   width 100%
+        //   top 50%
+        //   transform translateY(-50%)
+        .search-history
+          position relative
+          margin 0 20px
+          .title
+            display flex
+            align-items center
+            height 40px
+            font-size 16px
+            .text
+              flex 1
+            .clear
+              i
+                font-size 18px
+                color #000
+        .search-suggest
+          position relative
+          height 100%
 </style>

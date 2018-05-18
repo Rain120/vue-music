@@ -2,7 +2,7 @@
  * @Author: Rainy
  * @Date: 2018-03-26 16:03:05
  * @Last Modified by: Rainy
- * @Last Modified time: 2018-05-10 23:31:59
+ * @Last Modified time: 2018-05-17 21:26:03
  */
 // 详见 https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=neteasecloudmusicapi
 import axios from 'axios'
@@ -116,9 +116,15 @@ export function getDjProgram () {
  * @param {*} limit 可选参数，返回数量，默认是30
  * @param {*} offset 可选参数， 用于分页，如 : 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
  */
-export function getSearch (keywords, type = 1, limit = 30, offset = 0) {
-  let url = apiConfig.search + `?keywords=${keywords}&type=${type}&limit=${limit}&offset=${offset}`
-  console.log(url)
+export function getSearchSongs (keywords, page) {
+  let url = apiConfig.search + `?keywords=${keywords}&offset=${page}`
+  return axios.get(url).then(res => {
+    return Promise.resolve(res)
+  })
+}
+
+export function getSearchSuggest (name) {
+  let url = apiConfig.suggest + `?keywords=${name}`
   return axios.get(url).then(res => {
     return Promise.resolve(res)
   })

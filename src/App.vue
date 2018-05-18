@@ -4,11 +4,13 @@
     <keep-alive>
       <router-view/>
     </keep-alive>
+    <!-- <player></player> -->
   </div>
 </template>
 
 <script>
 import MyHeader from 'components/my-header/my-header'
+import Player from 'components/player/player'
 export default {
   name: 'App',
   methods: {
@@ -19,7 +21,8 @@ export default {
     }
   },
   components: {
-    MyHeader
+    MyHeader,
+    Player
   }
 }
 </script>

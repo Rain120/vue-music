@@ -18,7 +18,9 @@ export default {
     },
     data: {
       type: Array,
-      default: null
+      default () {
+        return []
+      }
     },
     listenScroll: {
       type: Boolean,
@@ -47,7 +49,13 @@ export default {
   },
   mounted () {
     setTimeout(() => {
-      this._initScroll()
+      this.$nextTick(() => {
+        if (!this.scroll) {
+          this._initScroll()
+        } else {
+          this.scroll.refresh()
+        }
+      })
     }, 20)
   },
   methods: {
@@ -55,25 +63,30 @@ export default {
       if (!this.$refs.wrapper) {
         return
       }
+
       this.scroll = new BScroll(this.$refs.wrapper, {
         probeType: this.probeType,
         scrollY: this.scrollY,
         scrollX: this.scrollX,
         click: this.click
       })
+
       if (this.listenScroll) {
         let me = this
         this.scroll.on('scroll', (pos) => {
           me.$emit('scroll', pos)
         })
       }
+
       if (this.pullup) {
         this.scroll.on('scrollEnd', () => {
           if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
             this.$emit('scrollToEnd')
+            console.log('scrolltoEnd')
           }
         })
       }
+
       if (this.beforeScroll) {
         this.scroll.on('beforeScrollStart', () => {
           this.$emit('beforeScroll')
