@@ -50,7 +50,8 @@ export default {
       z-index 40
       width 60%
       height 100%
-      background-color #222222
+      background-color rgba(255, 255, 255, 0.6)
+      // background-color #222222
       color #ffffff
       transform translate3d(0, 0, 0)
       &.fold-enter-active, &.fold-leave-active

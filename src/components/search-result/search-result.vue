@@ -6,31 +6,33 @@
     :listenScroll="listenScroll"
     @scrollToEnd="searchMore"
     v-show="!searchShow">
-    <div class="suggest-content">
-      <div class="search-suggest" v-show="!searchShow && query && songs.length > 0">
-        <p class="title" v-show="showSinger && showList && suggest.artists">{{this.suggestString}}</p>
-        <div class="search-suggest-item" v-if="suggest.artists && showSinger">
-          <img :src="suggest.artists[0].img1v1Url" width="50" height="50">
-          <span>歌手：{{suggest.artists[0].name}}</span>
-        </div>
-        <div class="search-suggest-item" v-if="suggest.playlists && showList">
-          <img :src="suggest.playlists[0].coverImgUrl" width="50" height="50">
-          <div class="text">
-            <p>歌单：{{suggest.playlists[0].name}}</p>
-            <p class="singer">{{suggest.albums[0].artist.name}}</p>
+    <div>
+      <div class="suggest-content">
+        <div class="search-suggest" v-show="!searchShow && query && songs.length > 0">
+          <p class="title" v-show="showSinger && showList && suggest.artists">{{this.suggestString}}</p>
+          <div class="search-suggest-item" v-if="suggest.artists && showSinger">
+            <img :src="suggest.artists[0].img1v1Url" width="50" height="50">
+            <span>歌手：{{suggest.artists[0].name}}</span>
+          </div>
+          <div class="search-suggest-item" v-if="suggest.playlists && showList">
+            <img :src="suggest.playlists[0].coverImgUrl" width="50" height="50">
+            <div class="text">
+              <p>歌单：{{suggest.playlists[0].name}}</p>
+              <p class="singer">{{suggest.albums[0].artist.name}}</p>
+            </div>
           </div>
         </div>
+        <ul class="result-list">
+          <li class="result-item" @click="selectSong(song)" v-for="(song, index) in songs" :key="index">
+            <div class="name">
+              <p class="song">{{song.name}}</p>
+              <p class="singer">{{song.singer}}</p>
+            </div>
+          </li>
+          <loading v-show="haveMore && query"></loading>
+        </ul>
+        <div v-show="!haveMore && !songs.length && query" class="no-result-wrapper">{{this.noResult}}</div>
       </div>
-      <ul class="result-list">
-        <li class="result-item" @click="selectSong(song)" v-for="(song, index) in songs" :key="index">
-          <div class="name">
-            <p class="song">{{song.name}}</p>
-            <p class="singer">{{song.singer}}</p>
-          </div>
-        </li>
-        <loading v-show="haveMore && query"></loading>
-      </ul>
-      <div v-show="!haveMore && !songs.length && query" class="no-result-wrapper">{{this.noResult}}</div>
     </div>
   </scroll>
 </template>
@@ -73,12 +75,17 @@ export default {
       haveMore: true
     }
   },
+  mounted () {
+    this.$nextTick(() => {
+      this.$refs.suggest.refresh()
+    })
+  },
   methods: {
     selectSong (song) {
       console.log(song)
     },
     search () {
-      console.log(this.$refs.suggest)
+      // console.log(this.$refs.suggest)
       this.searchShow = false
       this.hasMore = true
       this.$refs.suggest.scrollTo(0, 0)

@@ -1,6 +1,5 @@
 <template>
-  <div>
-    Broadcast
+  <div class="broadcast">
   </div>
 </template>
 

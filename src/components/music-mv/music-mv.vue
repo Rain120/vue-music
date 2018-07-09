@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="musicMv">
     music mv
   </div>
 </template>
@@ -10,5 +10,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+  .musicMv
+    position absolute
+    top 0
 </style>

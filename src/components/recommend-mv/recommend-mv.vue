@@ -34,8 +34,6 @@ export default {
 
 <style lang="stylus" scoped>
   .recommend-mv
-    // position fixed
-    // top 5.5rem
-    // bottom 0
-    // width 100%
+    position absolute
+    top 0
 </style>

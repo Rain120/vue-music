@@ -1,6 +1,5 @@
 <template>
   <div class="my-friend">
-    friends
   </div>
 </template>
 

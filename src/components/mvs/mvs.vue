@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mvs">
     mvs
   </div>
 </template>
@@ -10,5 +10,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+  .mvs
+    position absolute
+    top 0
 </style>

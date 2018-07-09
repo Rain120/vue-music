@@ -212,6 +212,7 @@ export default {
     top 5.5rem
     bottom 0
     width 100%
+    background #fff
     .recommend-content
       height 100%
       overflow hidden

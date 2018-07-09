@@ -11,14 +11,14 @@
         <span class="tab-link">电台</span>
       </router-link>
     </div>
-    <keep-alive>
+    <!-- <keep-alive>
       <router-view></router-view>
-    </keep-alive>
-    <!-- <transition :name="transitionName">
+    </keep-alive> -->
+    <transition :name="transitionName">
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
-    </transition> -->
+    </transition>
   </div>
 </template>
 
